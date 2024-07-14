@@ -408,12 +408,12 @@ elif page == "Ιστορικό":
         fire_df['datetime'] = pd.to_datetime(fire_df['datetime'], errors='coerce')
 
         # Βεβαιωθείτε ότι οι στήλες 'datetime' και 'temperature_2m (°C)' υπάρχουν στα δεδομένα
-        if 'temperature_2m (°C)' in fire_df.columns:
-            new_data = fire_df[['datetime', 'temperature_2m (°C)']]
+        if 'temperature_2m' in fire_df.columns:
+            new_data = fire_df[['datetime', 'temperature_2m']]
 
             # Συνδυασμός των δεδομένων χωρίς διπλότυπα
             combined_df = pd.concat(
-                [df_excel[['datetime', 'temperature_2m (°C)']], new_data]).drop_duplicates().reset_index(drop=True)
+                [df_excel[['datetime', 'temperature_2m']], new_data]).drop_duplicates().reset_index(drop=True)
 
             # Αποθηκεύστε τα ενημερωμένα δεδομένα πίσω στο Excel
             combined_df.to_excel(excel_file_path, index=False)
@@ -422,14 +422,14 @@ elif page == "Ιστορικό":
             st.subheader("Περσινές Θερμοκρασίες")
             last_year = (pd.to_datetime("today") - pd.DateOffset(years=1)).year
             last_year_data = combined_df[combined_df['datetime'].dt.year == last_year]
-            fig_last_year = px.line(last_year_data, x='datetime', y='temperature_2m (°C)',
+            fig_last_year = px.line(last_year_data, x='datetime', y='temperature_2m',
                                     title="Περσινές Θερμοκρασίες")
             st.plotly_chart(fig_last_year)
 
             st.subheader("Φετινές Θερμοκρασίες")
             current_year = pd.to_datetime("today").year
             this_year_data = combined_df[combined_df['datetime'].dt.year == current_year]
-            fig_this_year = px.line(this_year_data, x='datetime', y='temperature_2m (°C)', title="Φετινές Θερμοκρασίες")
+            fig_this_year = px.line(this_year_data, x='datetime', y='temperature_2m', title="Φετινές Θερμοκρασίες")
             st.plotly_chart(fig_this_year)
         else:
-            st.error("Η στήλη 'temperature_2m (°C)' δεν βρέθηκε στα δεδομένα API.")
+            st.error("Η στήλη 'temperature_2m' δεν βρέθηκε στα δεδομένα API.")
