@@ -30,7 +30,7 @@ def fetch_data(url):
 
 # Διευθύνσεις API
 url_sensor1 = "https://stayrostsamadias.pythonanywhere.com/api/data"
-url_sensor2 = "https://saek2025.pythonanywhere.com/data"
+url_sensor2 = "https://saek2025a.pythonanywhere.com/data"
 url_computer_data = "https://stayrostsamadias.pythonanywhere.com/data"
 url_mistral = "https://stayrostsamadias.pythonanywhere.com/api/data3"
 
