@@ -206,12 +206,10 @@ elif page == "Αισθητήρας 1":
         fig = create_gauge(df_sensor1['windspeed'].iloc[0], 'Ταχύτητα Ανέμου', min_value=0, max_value=100)
         st.plotly_chart(fig)
 
-   st.subheader("Γράφημα Αισθητήρα Βροχής")
-
-if 'pm2' in df_sensor1.columns:
-    rain_status = df_sensor1['pm2'].iloc[0]
-    st.write(f"Η τιμή του 'rain_status' είναι: {rain_status}")
+   if 'pm2' in df_sensor1.columns:
+    rain_status = df_sensor1['pm2'].values[0]
     
+    # Έλεγχος αν η τιμή είναι αριθμός
     if pd.isna(rain_status):
         st.write("Η τιμή του 'pm2' είναι άγνωστη.")
     else:
