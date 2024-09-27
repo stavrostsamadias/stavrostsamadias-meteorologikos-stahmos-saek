@@ -206,25 +206,22 @@ elif page == "Αισθητήρας 1":
         fig = create_gauge(df_sensor1['windspeed'].iloc[0], 'Ταχύτητα Ανέμου', min_value=0, max_value=100)
         st.plotly_chart(fig)
 
-   if 'pm2' in df_sensor1.columns:
-    rain_status = df_sensor1['pm2'].values[0]
-    
-    # Έλεγχος αν η τιμή είναι αριθμός
-    if pd.isna(rain_status):
-        st.write("Η τιμή του 'pm2' είναι άγνωστη.")
+    # Εμφάνιση εικόνας ανάλογα με την κατάσταση βροχής
+    st.subheader("Γράφημα Αισθητήρα Βροχής")
+    if 'pm2' in df_sensor1.columns:
+        rain_status = df_sensor1['pm2'].values[0]
+        # Μετατροπή σε float αν δεν είναι ήδη
+        rain_status = float(rain_status)
+
+        if rain_status == 0.0:
+            st.image(sunny_image_path, caption="Ηλιοφάνεια")
+        elif rain_status > 0.1:
+            st.image(rainy_image_path, caption="Βροχή")
+        else:
+            st.write("Δεν υπάρχουν επαρκή δεδομένα για την κατάσταση του καιρού.")
     else:
-        try:
-            rain_status = float(rain_status)
-            if rain_status == 0.0:
-                st.image(sunny_image_path, caption="Ηλιοφάνεια")
-            elif rain_status > 0.1:
-                st.image(rainy_image_path, caption="Βροχή")
-            else:
-                st.write("Δεν υπάρχουν επαρκή δεδομένα για την κατάσταση του καιρού.")
-        except ValueError:
-            st.write("Η τιμή του 'pm2' δεν είναι αριθμός.")
-else:
-    st.write("Η στήλη 'pm2' δεν βρέθηκε στο df_sensor1.")
+        st.write("Η στήλη 'pm2' δεν βρέθηκε στο df_sensor1.")
+
 elif page == "Αισθητήρας 2":
     st.header("Δεδομένα από τον Αισθητήρα 2")
     st.dataframe(df_sensor2)
