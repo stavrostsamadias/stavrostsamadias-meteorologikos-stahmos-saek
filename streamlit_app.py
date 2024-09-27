@@ -210,7 +210,7 @@ elif page == "Αισθητήρας 1":
     st.subheader("Γράφημα Αισθητήρα Βροχής")
     if 'pm2' in df_sensor1.columns:
         rain_status = df_sensor1['pm2'].iloc[0]
-        if rain_status > 0.1:
+        if rain_status > 1:
             st.image(rainy_image_path, caption="Βροχή")
         else:
             st.image(sunny_image_path, caption="Ηλιοφάνεια")
