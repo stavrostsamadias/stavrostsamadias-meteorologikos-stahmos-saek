@@ -30,7 +30,7 @@ def fetch_data(url):
 
 # Διευθύνσεις API
 url_sensor1 = "https://stayrostsamadias.pythonanywhere.com/api/data"
-url_sensor2 = "https://saek2025a.pythonanywhere.com/data"
+url_sensor2 = "https://saek2025.pythonanywhere.com/data"
 url_computer_data = "https://stayrostsamadias.pythonanywhere.com/data"
 url_mistral = "https://stayrostsamadias.pythonanywhere.com/api/data3"
 
@@ -210,7 +210,7 @@ elif page == "Αισθητήρας 1":
     st.subheader("Γράφημα Αισθητήρα Βροχής")
     if 'pm2' in df_sensor1.columns:
         rain_status = df_sensor1['pm2'].iloc[0]
-        if rain_status > 0:
+        if rain_status > 0.1:
             st.image(rainy_image_path, caption="Βροχή")
         else:
             st.image(sunny_image_path, caption="Ηλιοφάνεια")
